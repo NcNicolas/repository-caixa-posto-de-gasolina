@@ -14,16 +14,7 @@ def gasolinaadv(a):
 def oleo(a):
     a = a * 6.59
     return a
-
-
-def negative(Num1, Num2):
-    if Num1 < Num2:
-        a = float(f"{Num2 - Num1:.2f}")
-    else:
-        a = float(f'{Num1 - Num2:.2f}')
-    return a
-
-
+ 
 def numeracao():
     nume1 = ponto(input("Numeração 1: "))
     nume2 = ponto(input("Numeração 2: "))
