@@ -1,23 +1,24 @@
-# valor da gasolina
+# valor da gasolina.
 def gasolina(a):
     a = a * 6.60
     return a
 
 
-# valor da gasolina aditivada
+# valor da gasolina aditivada.
 def gasolinaadv(a):
     a = a * 6.77
     return a
 
 
-# valor do oleo s10 e comum
+# valor do oleo s10 e comum.
 def oleo(a):
     a = a * 6.59
     return a
  
+ # numerações das bombas
 def numeracao():
-    nume1 = ponto(input("Numeração 1: "))
-    nume2 = ponto(input("Numeração 2: "))
+    nume1 = ponto(input("Numeração(noite) 1: "))
+    nume2 = ponto(input("Numeração(manhão) 2: "))
     nume1 = float(nume1)
     nume2 = float(nume2)
     if nume1 < nume2:
@@ -26,7 +27,7 @@ def numeracao():
         litros = float(nume1 - nume2)
     return litros
 
- #Troca a , por . para evitar erros
+ #Troca , por . para evitar erros.
 def ponto(a):
     b = ',' in a
     if b:
@@ -35,7 +36,7 @@ def ponto(a):
         return a
     return c
 
-
+ # Cores no terminal 
 RED = "\033[31m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
@@ -100,6 +101,7 @@ reais_bomba_oelo_s500 = oleo(litros_bomba_oleo_s500)
 print(f"litros:", RED + f"{litros_bomba_oleo_s500:.2f}" + RESET, "reias:",
       GREEN + f"{reais_bomba_oelo_s500:.2f}" + RESET)
 
+ # vendas a parte.
 diversos = float(input("Diversos:"))
 
 Total_litros = sum([litros_bomba_oleo_s10, litros_bomba_oleo_s10_2, litros_bomba_gasolina1, litros_bomba_gasolina2,
@@ -111,10 +113,12 @@ total_gasolina = sum([litros_bomba_gasolina1, litros_bomba_gasolina2, litros_bom
 total_s10 = sum([litros_bomba_oleo_s10, litros_bomba_oleo_s10_2])
 print("=" * 46)
 
-valor_litros_gasolina = float(input("Litros Gasolina dia anterior: "))
-valor_litros_s10 = float(input("Litros S-10 dia anterior: "))
-valor_litros_s500 = float(input("Litros S500 dia anterior: "))
-valor_litros_vpower = float(input("Litros V-Power dias anterior: "))
+# valores dos tanques do dia anterior 
+print('Litragem dos tanques dia anterior')
+valor_litros_gasolina = float(input("Tanque de gasolina(L): "))
+valor_litros_s10 = float(input("Tanque de S-10(L): "))
+valor_litros_s500 = float(input("Tanque de s-500(L): "))
+valor_litros_vpower = float(input("Tanque de V-Power(L): "))
 print("=" * 46)
 
 print("")
