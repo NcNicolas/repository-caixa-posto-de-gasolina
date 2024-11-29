@@ -26,7 +26,7 @@ def numeracao():
         litros = float(nume1 - nume2)
     return litros
 
-
+ #Troca a , por . para evitar erros
 def ponto(a):
     b = ',' in a
     if b:
