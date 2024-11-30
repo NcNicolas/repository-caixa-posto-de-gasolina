@@ -24,7 +24,6 @@ def numeracao():
         nume1 = float(0)
         return nume1
     elif nume2 == "":
-
         nume2 = float(0)
         return nume2
 
@@ -53,9 +52,9 @@ RED = "\033[31m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
 
-print("=" * 46)
-print(f'{"CAIXA":>25}')
-print("=" * 46)
+print("=" * 50)
+print("CAIXA".center(50))
+print("=" * 50)
 
 print("")
 # Bombas de Gasolina
@@ -65,30 +64,31 @@ reais_bomba_gasolina1 = gasolina(litros_bomba_gasolina1)
 print(f"Litros: ", RED + F"{litros_bomba_gasolina1:.2f}" + RESET, "Reais: ",
       GREEN + f"{reais_bomba_gasolina1:.2f}" + RESET)
 
-print("=" * 46)
+print("=" * 50)
 
 print("Gasolina2")
 litros_bomba_gasolina2 = numeracao()
 reais_bomba_gasolina2 = gasolina(litros_bomba_gasolina2)
 print(f"Litros: ", RED + f"{litros_bomba_gasolina2:.2f}" + RESET, "Reais: ",
       GREEN + f"{reais_bomba_gasolina2:.2f}" + RESET)
-print("=" * 46)
+print("=" * 50)
 
 print("Gasolina3")
 litros_bomba_gasolina3 = numeracao()
 reais_bomba_gasolina3 = gasolina(litros_bomba_gasolina3)
 print(f"Litros: ", RED + f"{litros_bomba_gasolina3:.2f}" + RESET, "Reais: ",
       GREEN + f"{reais_bomba_gasolina3:.2f}" + RESET)
-print("=" * 46)
+print("=" * 50)
 
 # Bomba Gasolina Aditivada
+
 print(f"Gasolina Aditivada")
 print("V-Power")
 litros_bomba_gasolina_adv = numeracao()
 reais_bomba_gasolina_adv = gasolinaadv(litros_bomba_gasolina_adv)
 print(f"litros: ", RED + f"{litros_bomba_gasolina_adv:.2f}" + RESET, "Reais :",
       GREEN + f"{reais_bomba_gasolina_adv:.2f}" + RESET)
-print("=" * 46)
+print("=" * 50)
 
 # Bomba oleo Comum e S10
 print("     Oleo Comum & S10     ")
@@ -98,14 +98,14 @@ reais_bomba_oelo_s10 = oleo(litros_bomba_oleo_s10)
 print(f"litros: ", RED + f"{litros_bomba_oleo_s10:.2f}" + RESET, "Reias :",
       GREEN + f"{reais_bomba_oelo_s10:.2f}" + RESET)
 
-print("=" * 46)
+print("=" * 50)
 
 print("S-10")
 litros_bomba_oleo_s10_2 = numeracao()
 reais_bomba_oelo_s10_2 = oleo(litros_bomba_oleo_s10_2)
 print(f"litros:", RED + f"{litros_bomba_oleo_s10:.2f}" + RESET, "reias:",
       GREEN + f"{reais_bomba_oelo_s10_2:.2f}" + RESET)
-print("=" * 46)
+print("=" * 50)
 
 print("S-500")
 litros_bomba_oleo_s500 = numeracao()
@@ -114,7 +114,12 @@ print(f"litros:", RED + f"{litros_bomba_oleo_s500:.2f}" + RESET, "reias:",
       GREEN + f"{reais_bomba_oelo_s500:.2f}" + RESET)
 
 # vendas a parte.
-diversos = float(input("Diversos:"))
+
+div = input("Diversos:")
+if div == "":
+    div = float(0)
+diversos = float(div)
+print(GREEN + f'{diversos}'+ RESET)
 
 Total_litros = sum([litros_bomba_oleo_s10, litros_bomba_oleo_s10_2, litros_bomba_gasolina1, litros_bomba_gasolina2,
                     litros_bomba_gasolina3, litros_bomba_gasolina_adv, litros_bomba_oleo_s500])
@@ -123,7 +128,7 @@ Total_reias = sum(
      reais_bomba_oelo_s500, reais_bomba_gasolina_adv])
 total_gasolina = sum([litros_bomba_gasolina1, litros_bomba_gasolina2, litros_bomba_gasolina3])
 total_s10 = sum([litros_bomba_oleo_s10, litros_bomba_oleo_s10_2])
-print("=" * 46)
+print("=" * 50)
 
 # valores dos tanques do dia anterior
 print('Litragem dos tanques dia anterior')
@@ -131,10 +136,11 @@ valor_litros_gasolina = float(input("Tanque de gasolina(L): "))
 valor_litros_s10 = float(input("Tanque de S-10(L): "))
 valor_litros_s500 = float(input("Tanque de s-500(L): "))
 valor_litros_vpower = float(input("Tanque de V-Power(L): "))
-print("=" * 46)
-
+print("=" * 50)
+print('VENDA DE COMBUSTIVEIS'.center(50))
+print("=" * 50)
 print("")
-print("")
+print(f"{'Bico':<7} | {'Litros':<11} | {'Reias'}")
 print(f"Gasolina:", RED + f"{"%.2f" % litros_bomba_gasolina1:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina1:.2f}" + RESET)
 print(f"Gasolina:", RED + f"{"%.2f" % litros_bomba_gasolina2:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina2:.2f}" + RESET)
 print(f"Gasolina:", RED + f"{"%.2f" % litros_bomba_gasolina3:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina3:.2f}" + RESET)
@@ -145,9 +151,11 @@ print(f"S-10    :", RED + f"{"%.2f" % litros_bomba_oleo_s10_2:<10}" + RESET, "->
       GREEN + f"{reais_bomba_oelo_s10_2:.2f}" + RESET)
 print(f"S-500   :", RED + f"{"%.2f" % litros_bomba_oleo_s500:<10}" + RESET, "->", GREEN + f"{reais_bomba_oelo_s500:.2f}" + RESET)
 print(f"Total Reais :", GREEN + f"{Total_reias:.2f}" + RESET)
+print(f"Total Diversos:", GREEN + f'{diversos}'+ RESET)
 print(f"Total Reais + Diversos :", GREEN + f"{Total_reias + diversos:.2f}" + RESET)
-print("")
-print("")
+print("=" * 50)
+print("TANQUES DE COMBUSTIVEIS".center(50))
+print("=" * 50)
 print(f"{'Gasolina':<11} | {'S-10':<11} | {'S-500':<11} | {'V-Power'}")
 
 print(GREEN + f"{"%.2f" % valor_litros_gasolina:<11}" + RESET, "|", GREEN + f"{"%.2f" % valor_litros_s10:<11}" + RESET, "|",
