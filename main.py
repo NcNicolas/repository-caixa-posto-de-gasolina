@@ -1,40 +1,43 @@
 # valor da gasolina.
-def gasolina(a):
-    a = a * 6.60
-    return a
+def gasolina(litros):
+    reais = litros * 6.60
+    return reais
 
 
 # valor da gasolina aditivada.
-def gasolinaadv(a):
-    a = a * 6.77
-    return a
+def gasolinaadv(litros):
+    reias = litros * 6.77
+    return reias
 
 
 # valor do oleo s10 e comum.
-def oleo(a):
-    a = a * 6.59
-    return a
-
+def oleo(litros):
+    reais = litros * 6.59
+    return reais
 
 # numerações das bombas
 def numeracao():
-    nume1 = ponto(input("Numeração(noite) 1: "))
-    nume2 = ponto(input("Numeração(manhão) 2: "))
-    if nume1 == "":
-        nume1 = float(0)
-        return nume1
-    elif nume2 == "":
-        nume2 = float(0)
-        return nume2
+    try:
+        nume1 = input("Numeração(noite) 1: ")
+        if ',' in nume1:
+            nume1 = nume1.replace(",", ".")
+        nume1 = float(nume1)
+    except:
+        nume1 = 0.0  # Valor padrão em caso de erro
 
-    nume1 = float(nume1)
-    nume2 = float(nume2)
+    try:
+        nume2 = input("Numeração(manhã) 2: ")
+        if ',' in nume2:
+            nume2 = nume2.replace(",", ".")
+        nume2 = float(nume2)
+    except:
+        nume2 = 0.0  # Valor padrão em caso de erro
 
     if nume1 < nume2:
-        litros = float(nume2 - nume1)
+        soma = nume2 - nume1
     else:
-        litros = float(nume1 - nume2)
-    return litros
+        soma = nume1 - nume2
+    return soma
 
 
 # Troca , por . para evitar erros.
@@ -115,11 +118,11 @@ print(f"litros:", RED + f"{litros_bomba_oleo_s500:.2f}" + RESET, "reias:",
 
 # vendas a parte.
 
-div = input("Diversos:")
-if div == "":
-    div = float(0)
-diversos = float(div)
-print(GREEN + f'{diversos}'+ RESET)
+try:
+    diversos = ponto(float(input('Diversos: ')))
+except:
+    diversos = 0
+print(GREEN + f'{diversos}' + RESET)
 
 Total_litros = sum([litros_bomba_oleo_s10, litros_bomba_oleo_s10_2, litros_bomba_gasolina1, litros_bomba_gasolina2,
                     litros_bomba_gasolina3, litros_bomba_gasolina_adv, litros_bomba_oleo_s500])
@@ -134,19 +137,19 @@ print("=" * 50)
 
 print('Litragem dos tanques dia anterior')
 try:
-    valor_litros_gasolina = float(input("Tanque de gasolina(L): "))
+    valor_litros_gasolina = ponto(float(input("Tanque de gasolina(L): ")))
 except:
     valor_litros_gasolina = 0
 try:
-    valor_litros_s10 = float(input("Tanque de S-10(L): "))
+    valor_litros_s10 = ponto(float(input("Tanque de S-10(L): ")))
 except:
     valor_litros_s10 = 0
 try:
-    valor_litros_s500 = float(input("Tanque de s-500(L): "))
+    valor_litros_s500 = ponto(float(input("Tanque de s-500(L): ")))
 except:
     valor_litros_s500 = 0
 try:
-    valor_litros_vpower = float(input("Tanque de V-Power(L): "))
+    valor_litros_vpower = ponto(float(input("Tanque de V-Power(L): ")))
 except:
     valor_litros_vpower = 0
 
@@ -154,16 +157,27 @@ print("=" * 50)
 print('VENDA DE COMBUSTIVEIS'.center(50))
 print("=" * 50)
 print("")
+
+def litros_reias(litros,Reias):
+    print(RED + f"{"%.2f" % litros:<10}" + RESET, "->", GREEN + f"{Reias:.2f}" + RESET)
+    return litros_reias
+
 print(f"{'Bico':<7} | {'Litros':<11} | {'Reias'}")
-print(f"Gasolina:", RED + f"{"%.2f" % litros_bomba_gasolina1:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina1:.2f}" + RESET)
-print(f"Gasolina:", RED + f"{"%.2f" % litros_bomba_gasolina2:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina2:.2f}" + RESET)
-print(f"Gasolina:", RED + f"{"%.2f" % litros_bomba_gasolina3:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina3:.2f}" + RESET)
-print(f"V-Power :", RED + f"{"%.2f" % litros_bomba_gasolina_adv:<10}" + RESET, "->",
-      GREEN + f"{reais_bomba_gasolina_adv:.2f}" + RESET)
-print(f"S-10    :", RED + f"{"%.2f" % litros_bomba_oleo_s10:<10}" + RESET, "->", GREEN + f"{reais_bomba_oelo_s10:.2f}" + RESET)
-print(f"S-10    :", RED + f"{"%.2f" % litros_bomba_oleo_s10_2:<10}" + RESET, "->",
-      GREEN + f"{reais_bomba_oelo_s10_2:.2f}" + RESET)
-print(f"S-500   :", RED + f"{"%.2f" % litros_bomba_oleo_s500:<10}" + RESET, "->", GREEN + f"{reais_bomba_oelo_s500:.2f}" + RESET)
+print("Gasolina: " , end="")
+litros_reias(litros_bomba_gasolina1,reais_bomba_gasolina1)
+print("Gasolina: " , end="")
+litros_reias(litros_bomba_gasolina2,reais_bomba_gasolina2)
+print("Gasolina: " , end="")
+litros_reias(litros_bomba_gasolina3,reais_bomba_gasolina3)
+print("V-Power : " , end="")
+litros_reias(litros_bomba_gasolina_adv,reais_bomba_gasolina_adv)
+print("S-10    : " , end="")
+litros_reias(litros_bomba_oleo_s10,reais_bomba_oelo_s10)
+print("S-10    : " , end="")
+litros_reias(litros_bomba_oleo_s10_2,reais_bomba_oelo_s10_2)
+print("S-500   : " , end="")
+litros_reias(litros_bomba_oleo_s500,reais_bomba_oelo_s500)
+
 print(f"Total Reais :", GREEN + f"{Total_reias:.2f}" + RESET)
 print(f"Total Diversos:", GREEN + f'{diversos}'+ RESET)
 print(f"Total Reais + Diversos :", GREEN + f"{Total_reias + diversos:.2f}" + RESET)
@@ -178,6 +192,7 @@ print(GREEN + f"{"%.2f" % valor_litros_gasolina:<11}" + RESET, "|", GREEN + f"{"
 print(RED + f"{"%.2f" % total_gasolina:<11}" + RESET, "|", RED + f"{"%.2f" % total_s10:<11}" + RESET, "|",
       RED + f"{"%.2f" % litros_bomba_oleo_s500:<11}" + RESET, "|", RED +
       f"{"%.2f" % litros_bomba_gasolina_adv}" + RESET)
+
 def dimunir(num1,num2):
     r = num1 - num2
     return r
