@@ -1,29 +1,21 @@
 # valor da gasolina.
-def gasolina(a):
-    a = a * 6.69
+def bombas(a):
+    if a == litros_bomba_gasolina1:
+        preco = 6.69
+    elif a == litros_bomba_gasolina2:
+        preco = 6.89
+    elif a == litros_bomba_gasolina3:
+        preco = 6.69
+    elif a == litros_bomba_gasolina_adv:
+        preco = 6.99
+    elif a == litros_bomba_oleo_s10:
+        preco = 6.99
+    elif a == litros_bomba_oleo_s10_2:
+        preco = 6.79
+    elif a == litros_bomba_oleo_s500:
+        preco = 6.79
+    a = a * preco
     return a
-
-def gasolina2(a):
-    a = a * 6.89
-    return a
-
-# valor da gasolina aditivada.
-def gasolinaadv(a):
-    a = a * 6.99
-    return a
-
-# valor do oleo s10 e comum.
-def oleo(a):
-    a = a * 6.99
-    return a
-
-def oleo2(a):
-    a = a * 6.79
-    return a
-
-def formatatacao_de_cores(valor):
-
-    return f"{GREEN}"
 
 # numerações das bombas
 def numeracao():
@@ -88,7 +80,7 @@ print("")
 # Bombas de Gasolina
 print("Gasolina")
 litros_bomba_gasolina1 = numeracao()
-reais_bomba_gasolina1 = gasolina(litros_bomba_gasolina1)
+reais_bomba_gasolina1 = bombas(litros_bomba_gasolina1)
 print(f"Litros: ", RED + F"{litros_bomba_gasolina1:.2f}" + RESET, "Reais: ",
       GREEN + f"{reais_bomba_gasolina1:.2f}" + RESET)
 
@@ -96,14 +88,14 @@ print("=" * 50)
 
 print("Gasolina2")
 litros_bomba_gasolina2 = numeracao()
-reais_bomba_gasolina2 = gasolina2(litros_bomba_gasolina2)
+reais_bomba_gasolina2 = bombas(litros_bomba_gasolina2)
 print(f"Litros: ", RED + f"{litros_bomba_gasolina2:.2f}" + RESET, "Reais: ",
       GREEN + f"{reais_bomba_gasolina2:.2f}" + RESET)
 print("=" * 50)
 
 print("Gasolina3")
 litros_bomba_gasolina3 = numeracao()
-reais_bomba_gasolina3 = gasolina(litros_bomba_gasolina3)
+reais_bomba_gasolina3 = bombas(litros_bomba_gasolina3)
 print(f"Litros: ", RED + f"{litros_bomba_gasolina3:.2f}" + RESET, "Reais: ",
       GREEN + f"{reais_bomba_gasolina3:.2f}" + RESET)
 print("=" * 50)
@@ -113,7 +105,7 @@ print("=" * 50)
 print(f"Gasolina Aditivada")
 print("V-Power")
 litros_bomba_gasolina_adv = numeracao()
-reais_bomba_gasolina_adv = gasolinaadv(litros_bomba_gasolina_adv)
+reais_bomba_gasolina_adv = bombas(litros_bomba_gasolina_adv)
 print(f"litros: ", RED + f"{litros_bomba_gasolina_adv:.2f}" + RESET, "Reais :",
       GREEN + f"{reais_bomba_gasolina_adv:.2f}" + RESET)
 print("=" * 50)
@@ -122,7 +114,7 @@ print("=" * 50)
 print("Oleo Comum & S10")
 print("S-10")
 litros_bomba_oleo_s10_2 = numeracao()
-reais_bomba_oelo_s10_2 = oleo(litros_bomba_oleo_s10_2)
+reais_bomba_oelo_s10_2 = bombas(litros_bomba_oleo_s10_2)
 print(f"litros: ", RED + f"{litros_bomba_oleo_s10_2:.2f}" + RESET, "Reias :",
       GREEN + f"{reais_bomba_oelo_s10_2:.2f}" + RESET)
 
@@ -130,14 +122,14 @@ print("=" * 50)
 
 print("S-10")
 litros_bomba_oleo_s10 = numeracao()
-reais_bomba_oelo_s10 = oleo2(litros_bomba_oleo_s10)
+reais_bomba_oelo_s10 = bombas(litros_bomba_oleo_s10)
 print(f"litros:", RED + f"{litros_bomba_oleo_s10:.2f}" + RESET, "reias:",
       GREEN + f"{reais_bomba_oelo_s10:.2f}" + RESET)
 print("=" * 50)
 
 print("S-500")
 litros_bomba_oleo_s500 = numeracao()
-reais_bomba_oelo_s500 = oleo2(litros_bomba_oleo_s500)
+reais_bomba_oelo_s500 = bombas(litros_bomba_oleo_s500)
 print(f"litros:", RED + f"{litros_bomba_oleo_s500:.2f}" + RESET, "reias:",
       GREEN + f"{reais_bomba_oelo_s500:.2f}" + RESET)
 
