@@ -1,193 +1,104 @@
-# valor da gasolina.
-def bombas(a):
-    if a == litros_bomba_gasolina1:
-        preco = 6.69
-    elif a == litros_bomba_gasolina2:
-        preco = 6.89
-    elif a == litros_bomba_gasolina3:
-        preco = 6.69
-    elif a == litros_bomba_gasolina_adv:
-        preco = 6.99
-    elif a == litros_bomba_oleo_s10:
-        preco = 6.99
-    elif a == litros_bomba_oleo_s10_2:
-        preco = 6.79
-    elif a == litros_bomba_oleo_s500:
-        preco = 6.79
-    a = a * preco
-    return a
+from decimal import Decimal, getcontext, ROUND_HALF_UP
 
-# numerações das bombas
-def numeracao():
-    nume1 = ponto(input("Numeração(noite) 1: "))
-    nume2 = ponto(input("Numeração(manhão) 2: "))
-    if nume1 == "":
-        nume1 = float(0)
-        return nume1
-    elif nume2 == "":
-        nume2 = float(0)
-        return nume2
+getcontext().prec = 10
+getcontext().rounding = ROUND_HALF_UP
 
-    nume1 = float(nume1)
-    nume2 = float(nume2)
+# Nomes das bombas e tanques
+nome_bombas = [
+    "Gasolina 1",
+    "Gasolina 2",
+    "Gasolina 3",
+    "V-power",
+    "S10 1",
+    "S10 2",
+    "S500 3"
+]
 
-    if nume1 < nume2:
-        litros = float(nume2 - nume1)
-    else:
-        litros = float(nume1 - nume2)
-    return litros
+nome_tanques = [
+    "Gasolina comum",
+    "Diesel S10",
+    "Diesel S500",
+    "V-power"
+]
 
+# Preços das bombas
+preco_bombas = [
+    Decimal('6.69'),    #Bomba de gasolina 1
+    Decimal('6.89'),    #Bomba de gasolina 2
+    Decimal('6.69'),    #Bomba de gasolina 3
+    Decimal('6.99'),    #Bomba de gasolina aditivada
+    Decimal('6.99'),    #Bomba de s10 1
+    Decimal('6.79'),    #Bomba de s10 2
+    Decimal('6.79'),    #Bomba de s500
+]
 
-# Troca , por . para evitar erros.
-def ponto(a):
-    b = ',' in a
-    if b:
-        c = a.replace(",", ".")
-    else:
-        return a
-    return c
+# Listas para armazenar resultados
+bomba_litros = []
+bomba_reais = []
+litros_tanques = []
 
+def coletar_tanques():
+    print("ESTOQUE DO DIA".center(30))
+    for tanque in nome_tanques:
+        litros_tanques.append(Decimal(input(f"Litros no tanque '{tanque}': ")))
 
-# Cores no terminal
-RED = "\033[31m"
-GREEN = "\033[32m"
-RESET = "\033[0m"
+    print("Tanques coletados!".center(30))
 
-print("=" * 50)
-print("CAIXA".center(50))
-print("=" * 50)
-print('Litragem dos tanques dia anterior')
+def registrar_bombas():
+    print("REGISTRO DE COMBUSTIVEL VENDIDO".center(30))
+    for nome, preco in zip(nome_bombas, preco_bombas):
+        print(f"\n{nome}")
+        litros = Decimal(input("Numeração DIA: ")) - Decimal(input("Numeração NOITE: "))
+        reais = litros * preco
 
+        bomba_litros.append(litros)
+        bomba_reais.append(reais)
 
-try:
-    valor_litros_gasolina = float(input("Tanque de gasolina(L): "))
-except:
-    valor_litros_gasolina = 0
-try:
-    valor_litros_s10 = float(input("Tanque de S-10(L): "))
-except:
-    valor_litros_s10 = 0
-try:
-    valor_litros_s500 = float(input("Tanque de s-500(L): "))
-except:
-    valor_litros_s500 = 0
-try:
-    valor_litros_vpower = float(input("Tanque de V-Power(L): "))
-except:
+        print(f"Litros: {litros.quantize(Decimal('0.01'))} | Reais: {reais.quantize(Decimal('0.01'))}\n")
 
-    valor_litros_vpower = 0
-print("")
-# Bombas de Gasolina
-print("Gasolina")
-litros_bomba_gasolina1 = numeracao()
-reais_bomba_gasolina1 = bombas(litros_bomba_gasolina1)
-print(f"Litros: ", RED + F"{litros_bomba_gasolina1:.2f}" + RESET, "Reais: ",
-      GREEN + f"{reais_bomba_gasolina1:.2f}" + RESET)
+    print("Registro concluido!\n")
+diversos = Decimal('0.00')  # valor inicial
 
-print("=" * 50)
+def div():
+    global diversos
+    diversos = Decimal(input("Diversos: "))
+def exibir_resumo():
+    print("\nVENDAS".center(65))
+    print(f"\n{'Bico':<15} | {'Preço':<8} | {'Litros':<10} | {'Reais'}")
+    print("-" * 50)
+    for nome, preco, litros, reais in zip(nome_bombas, preco_bombas, bomba_litros, bomba_reais):
+        print(f"{nome:<15} | {preco:<8} | {litros:<10.2f} | {reais:.2f}")
 
-print("Gasolina2")
-litros_bomba_gasolina2 = numeracao()
-reais_bomba_gasolina2 = bombas(litros_bomba_gasolina2)
-print(f"Litros: ", RED + f"{litros_bomba_gasolina2:.2f}" + RESET, "Reais: ",
-      GREEN + f"{reais_bomba_gasolina2:.2f}" + RESET)
-print("=" * 50)
+    print(f"\nDiversos: R$ {diversos.quantize(Decimal('0.01'))}")
+    total_geral = sum(bomba_reais) + diversos
+    print(f"Total em Reais (com diversos): R$ {total_geral.quantize(Decimal('0.01'))}")
+    print(f"Total em Litros: {sum(bomba_litros).quantize(Decimal('0.01'))}\n")
 
-print("Gasolina3")
-litros_bomba_gasolina3 = numeracao()
-reais_bomba_gasolina3 = bombas(litros_bomba_gasolina3)
-print(f"Litros: ", RED + f"{litros_bomba_gasolina3:.2f}" + RESET, "Reais: ",
-      GREEN + f"{reais_bomba_gasolina3:.2f}" + RESET)
-print("=" * 50)
+def exibir_tanques_combustivel():
+    print("TANQUES".center(60))
+    print(f"{'Gasolina':<15} | {'S-10':<15} | {'S-500':<15} | {'V-Power'}")
+    print("-" * 65)
 
-# Bomba Gasolina Aditivada
+    # Estoque  atual dos taques
+    print(f"{litros_tanques[0]:<15.2f} | {litros_tanques[1]:<15.2f} | {litros_tanques[2]:<15.2f} | {litros_tanques[3]:.2f}")
 
-print(f"Gasolina Aditivada")
-print("V-Power")
-litros_bomba_gasolina_adv = numeracao()
-reais_bomba_gasolina_adv = bombas(litros_bomba_gasolina_adv)
-print(f"litros: ", RED + f"{litros_bomba_gasolina_adv:.2f}" + RESET, "Reais :",
-      GREEN + f"{reais_bomba_gasolina_adv:.2f}" + RESET)
-print("=" * 50)
+    # Quantidade abastecida por tipo de combustivel
+    print(f"{sum(bomba_litros[0:3]):<15.2f} | {sum(bomba_litros[4:6]):<15.2f} | {bomba_litros[6]:<15.2f} | {bomba_litros[3]:.2f}")
 
-# Bomba oleo Comum e S10
-print("Oleo Comum & S10")
-print("S-10")
-litros_bomba_oleo_s10_2 = numeracao()
-reais_bomba_oelo_s10_2 = bombas(litros_bomba_oleo_s10_2)
-print(f"litros: ", RED + f"{litros_bomba_oleo_s10_2:.2f}" + RESET, "Reias :",
-      GREEN + f"{reais_bomba_oelo_s10_2:.2f}" + RESET)
+    # Quantidade restante nos tanques
+    print(f"{(litros_tanques[0] - sum(bomba_litros[0:3])):<15.2f} | "
+          f"{(litros_tanques[1] - sum(bomba_litros[4:6])):<15.2f} | "
+          f"{(litros_tanques[2] - bomba_litros[6]):<15.2f} | "
+          f"{(litros_tanques[3] - bomba_litros[3]):.2f}")
 
-print("=" * 50)
+# Execução
+coletar_tanques()
+registrar_bombas()
+div()
+exibir_resumo()
+exibir_tanques_combustivel()
 
-print("S-10")
-litros_bomba_oleo_s10 = numeracao()
-reais_bomba_oelo_s10 = bombas(litros_bomba_oleo_s10)
-print(f"litros:", RED + f"{litros_bomba_oleo_s10:.2f}" + RESET, "reias:",
-      GREEN + f"{reais_bomba_oelo_s10:.2f}" + RESET)
-print("=" * 50)
-
-print("S-500")
-litros_bomba_oleo_s500 = numeracao()
-reais_bomba_oelo_s500 = bombas(litros_bomba_oleo_s500)
-print(f"litros:", RED + f"{litros_bomba_oleo_s500:.2f}" + RESET, "reias:",
-      GREEN + f"{reais_bomba_oelo_s500:.2f}" + RESET)
-
-# vendas a parte.
-
-div = input("Diversos:")
-if div == "":
-    div = float(0)
-diversos = float(div)
-print(GREEN + f'{diversos}'+ RESET)
-
-Total_litros = sum([litros_bomba_oleo_s10, litros_bomba_oleo_s10_2, litros_bomba_gasolina1, litros_bomba_gasolina2,
-                    litros_bomba_gasolina3, litros_bomba_gasolina_adv, litros_bomba_oleo_s500])
-Total_reias = sum(
-    [reais_bomba_oelo_s10, reais_bomba_gasolina1, reais_bomba_oelo_s10_2, reais_bomba_gasolina2, reais_bomba_gasolina3,
-     reais_bomba_oelo_s500, reais_bomba_gasolina_adv])
-total_gasolina = sum([litros_bomba_gasolina1, litros_bomba_gasolina2, litros_bomba_gasolina3])
-total_s10 = sum([litros_bomba_oleo_s10, litros_bomba_oleo_s10_2])
-print("=" * 50)
-
-
-#VENDAS DE COMBUSTIVEIS
-print("=" * 50)
-print('VENDA DE COMBUSTIVEIS'.center(50))
-print("=" * 50)
-print("")
-print(f"{'Bico':<7} | {'Preço':<11} | {'Litros':<11} | {'Reais'}")
-print(f"Gasolina:",f"{"6,69":<12}", RED + f"{"%.2f" % litros_bomba_gasolina1:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina1:.2f}" + RESET)
-print(f"Gasolina:",f"{"6,89":<12}", RED + f"{"%.2f" % litros_bomba_gasolina2:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina2:.2f}" + RESET)
-print(f"Gasolina:",f"{"6,69":<12}", RED + f"{"%.2f" % litros_bomba_gasolina3:<10}" + RESET, "->", GREEN + f"{reais_bomba_gasolina3:.2f}" + RESET)
-print(f"V-Power :",f"{"6,99":<12}", RED + f"{"%.2f" % litros_bomba_gasolina_adv:<10}" + RESET, "->",
-      GREEN + f"{reais_bomba_gasolina_adv:.2f}" + RESET)
-print(f"S-10    :"f"{"6,79":<12}", RED + f"{"%.2f" % litros_bomba_oleo_s10:<10}" + RESET, "->", GREEN + f"{reais_bomba_oelo_s10:.2f}" + RESET)
-print(f"S-10    :"f"{"6,89":<12}", RED + f"{"%.2f" % litros_bomba_oleo_s10_2:<10}" + RESET, "->",
-      GREEN + f"{reais_bomba_oelo_s10_2:.2f}" + RESET)
-print(f"S-500   :", f"{"6,79":<12}", RED + f"{"%.2f" % litros_bomba_oleo_s500:<10}" + RESET, "->", GREEN + f"{reais_bomba_oelo_s500:.2f}" + RESET)
-print(f"Total Reais :", GREEN + f"{Total_reias:.2f}" + RESET)
-print(f"Total Diversos:", GREEN + f'{diversos}'+ RESET)
-print(f"Total Reais + Diversos :", GREEN + f"{Total_reias + diversos:.2f}" + RESET)
-print("=" * 50)
-print("TANQUES DE COMBUSTIVEIS".center(50))
-print("=" * 50)
-print(f"{'Gasolina':<11} | {'S-10':<11} | {'S-500':<11} | {'V-Power'}")
-
-print(GREEN + f"{"%.2f" % valor_litros_gasolina:<11}" + RESET, "|", GREEN + f"{"%.2f" % valor_litros_s10:<11}" + RESET, "|",
-      GREEN + f"{"%.2f" % valor_litros_s500:<11}" + RESET, "|", GREEN +
-      f"{"%.2f" % valor_litros_vpower}" + RESET)
-print(RED + f"{"%.2f" % total_gasolina:<11}" + RESET, "|", RED + f"{"%.2f" % total_s10:<11}" + RESET, "|",
-      RED + f"{"%.2f" % litros_bomba_oleo_s500:<11}" + RESET, "|", RED +
-      f"{"%.2f" % litros_bomba_gasolina_adv}" + RESET)
-def dimunir(num1,num2):
-    r = num1 - num2
-    return r
-
-print(GREEN + f"{"%.2f" % dimunir(valor_litros_gasolina,total_gasolina):<11}" + RESET, "|",
-      GREEN + f"{"%.2f" % dimunir(valor_litros_s10,total_s10):<11}" + RESET, "|",
-      GREEN + f"{"%.2f" % dimunir(valor_litros_s500,litros_bomba_oleo_s500):<11}" + RESET, "|",
-      GREEN + f"{"%.2f" % dimunir(valor_litros_vpower,litros_bomba_gasolina_adv)}" + RESET)
+# Laço de encerramento
 while True:
     comando = input("Digite 'sair' para encerrar o programa: ")
     if comando.lower() == 'sair':
