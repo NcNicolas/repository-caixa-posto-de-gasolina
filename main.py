@@ -3,16 +3,6 @@ from decimal import Decimal, getcontext, ROUND_HALF_UP
 getcontext().prec = 10
 getcontext().rounding = ROUND_HALF_UP
 
-# Nomes das bombas e tanques
-nome_bombas = [
-    "Gasolina 1",
-    "Gasolina 2",
-    "Gasolina 3",
-    "V-power",
-    "S10 1",
-    "S10 2",
-    "S500 3"
-]
 
 nome_tanques = [
     "Gasolina comum",
@@ -21,16 +11,17 @@ nome_tanques = [
     "V-power"
 ]
 
-# Preços das bombas
-preco_bombas = [
-    Decimal('6.69'),    #Bomba de gasolina 1
-    Decimal('6.89'),    #Bomba de gasolina 2
-    Decimal('6.69'),    #Bomba de gasolina 3
-    Decimal('6.99'),    #Bomba de gasolina aditivada
-    Decimal('6.99'),    #Bomba de s10 1
-    Decimal('6.79'),    #Bomba de s10 2
-    Decimal('6.79'),    #Bomba de s500
-]
+# Nomes e Preços das bombas
+nomes_precos = {
+    "Gasolina 1": Decimal('6.69'),
+    "Gasolina 2": Decimal('6.89'), 
+    "Gasolina 3": Decimal('6.69'),
+    "V-power": Decimal('6.99'),
+    "S10 1": Decimal('6.99'), 
+    "S10 2": Decimal('6.79'),
+    "S500 3": Decimal('6.79'),
+}
+
 
 # Listas para armazenar resultados
 bomba_litros = []
@@ -46,7 +37,7 @@ def coletar_tanques():
 
 def registrar_bombas():
     print("REGISTRO DE COMBUSTIVEL VENDIDO".center(30))
-    for nome, preco in zip(nome_bombas, preco_bombas):
+    for nome, preco in zip(nomes_precos.keys(), nomes_precos.values()):
         print(f"\n{nome}")
         litros = Decimal(input("Numeração DIA: ")) - Decimal(input("Numeração NOITE: "))
         reais = litros * preco
@@ -66,7 +57,7 @@ def exibir_resumo():
     print("\nVENDAS".center(65))
     print(f"\n{'Bico':<15} | {'Preço':<8} | {'Litros':<10} | {'Reais'}")
     print("-" * 50)
-    for nome, preco, litros, reais in zip(nome_bombas, preco_bombas, bomba_litros, bomba_reais):
+    for nome, preco, litros, reais in zip(nomes_precos.keys(), nomes_precos.values(), bomba_litros, bomba_reais):
         print(f"{nome:<15} | {preco:<8} | {litros:<10.2f} | {reais:.2f}")
 
     print(f"\nDiversos: R$ {diversos.quantize(Decimal('0.01'))}")
