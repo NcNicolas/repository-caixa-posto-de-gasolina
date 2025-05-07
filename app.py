@@ -14,10 +14,10 @@ nome_tanques = [
 # Nomes e Preços das bombas
 nomes_precos = {
     "Gasolina 1": Decimal('6.69'),
-    "Gasolina 2": Decimal('6.89'), 
+    "Gasolina 2": Decimal('6.89'),
     "Gasolina 3": Decimal('6.69'),
     "V-power": Decimal('6.99'),
-    "S10 1": Decimal('6.99'), 
+    "S10 1": Decimal('6.99'),
     "S10 2": Decimal('6.79'),
     "S500 3": Decimal('6.79'),
 }
@@ -77,17 +77,32 @@ def exibir_tanques_combustivel():
     print(f"{sum(bomba_litros[0:3]):<15.2f} | {sum(bomba_litros[4:6]):<15.2f} | {bomba_litros[6]:<15.2f} | {bomba_litros[3]:.2f}")
 
     # Quantidade restante nos tanques
-    print(f"{(litros_tanques[0] - sum(bomba_litros[0:3])):<15.2f} | "
-          f"{(litros_tanques[1] - sum(bomba_litros[4:6])):<15.2f} | "
-          f"{(litros_tanques[2] - bomba_litros[6]):<15.2f} | "
-          f"{(litros_tanques[3] - bomba_litros[3]):.2f}")
+    litros_final.extend([
+        litros_tanques[0] - sum(bomba_litros[0:3]),
+        litros_tanques[1] - sum(bomba_litros[4:6]),
+        litros_tanques[2] - bomba_litros[6],
+        litros_tanques[3] - bomba_litros[3]
+        ])
 
+    print(f"{litros_final[0]:<15.2f} | {litros_final[1]:<15.2f} | {litros_final[2]:<15.2f} | {litros_final[3]:.2f}")
+litros_final = []
+def valor_mais_proximo(dados, alvo):
+    chave_mais_proxima = min(dados, key=lambda k: abs(dados[k] - alvo))
+    return chave_mais_proxima, dados[chave_mais_proxima]
+
+def tanques():
+    from tabelas import tabela
+
+    for nome, tabela, alvo in zip(nome_tanques, tabela.values(), litros_final):
+        chave, valor = valor_mais_proximo(tabela, alvo)
+        print(f"{nome:<15} → altura: {chave}, litros: {valor}")
 # Execução
 coletar_tanques()
 registrar_bombas()
 div()
 exibir_resumo()
 exibir_tanques_combustivel()
+tanques()
 
 # Laço de encerramento
 while True:
