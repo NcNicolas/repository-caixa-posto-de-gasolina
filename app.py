@@ -3,7 +3,7 @@ from decimal import Decimal, getcontext, ROUND_HALF_UP
 getcontext().prec = 10
 getcontext().rounding = ROUND_HALF_UP
 
-
+#Nome dos tanque e litragem de cada um
 nome_tanques = [
     "Gasolina comum",
     "Diesel S10",
@@ -29,6 +29,7 @@ bomba_reais = []
 litros_tanques = []
 litros_final = []
 
+#Coletor de entradas de combustiveis
 def coletar_tanques():
     print("ESTOQUE DO DIA".center(30))
     for tanque in nome_tanques:
@@ -36,6 +37,7 @@ def coletar_tanques():
 
     print("Tanques coletados!".center(30))
 
+#Registro das numerações das bombas
 def registrar_bombas():
     print("REGISTRO DE COMBUSTIVEL VENDIDO".center(30))
     for nome, preco in zip(nomes_precos.keys(), nomes_precos.values()):
@@ -52,7 +54,8 @@ def registrar_bombas():
 
     print("Registro concluido!\n")
 diversos = Decimal('0.00')  # valor inicial
-    
+
+#Resumo da venda geral
 def exibir_resumo():
     print("\nVENDAS".center(65))
     print(f"\n{'Bico':<15} | {'Preço':<8} | {'Litros':<10} | {'Reais'}")
@@ -65,6 +68,7 @@ def exibir_resumo():
     print(f"Total em Reais (com diversos): R$ {sum(bomba_reais) + diversos.quantize(Decimal('0.01'))}")
     print(f"Total em Litros: {sum(bomba_litros).quantize(Decimal('0.01'))}\n")
 
+#Exibi o total de listros em cada tanque no final
 def exibir_tanques_combustivel():
     print("TANQUES".center(60))
     print(f"{'Gasolina':<15} | {'S-10':<15} | {'S-500':<15} | {'V-Power'}")
@@ -85,10 +89,13 @@ def exibir_tanques_combustivel():
         ])
 
     print(f"{litros_final[0]:<15.2f} | {litros_final[1]:<15.2f} | {litros_final[2]:<15.2f} | {litros_final[3]:.2f}\n")
+    
+#Pega o resultado mais proximo da altura do tanque
 def valor_mais_proximo(dados, alvo):
     chave_mais_proxima = min(dados, key=lambda k: abs(dados[k] - alvo))
     return chave_mais_proxima, dados[chave_mais_proxima]
 
+#Exibi a altura e quantida que sobra em cada tanque
 def tanques():
     print("Altura dos tanques:".center(45))
     print(f"{"Tipo":<15} | {f"Altura":<15} | LItros")
